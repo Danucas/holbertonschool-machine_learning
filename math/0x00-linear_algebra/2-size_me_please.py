@@ -13,7 +13,6 @@ def size_recursive(vector, indexes):
     """
     if type(vector) == list and len(vector) > 0:
         indexes.append(len(vector))
-        if :
-            return size_recursive(vector[0], indexes)
+        return size_recursive(vector[0], indexes)
     else:
         return indexes
