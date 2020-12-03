@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Get the matrix dimensions
+"""
 
 
 def matrix_shape(matrix):
