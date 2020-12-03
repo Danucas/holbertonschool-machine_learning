@@ -4,6 +4,7 @@ Concatenate two matrices
 make use of copy
 """
 
+
 def cat_matrices2D(mat1, mat2, axis=0):
     """
     Concatenates by a defined axis
