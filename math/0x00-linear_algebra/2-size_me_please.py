@@ -11,8 +11,11 @@ def size_recursive(vector, indexes):
     iterate the matrix recusively by
     dividing in vectors
     """
-    if type(vector) == list and len(vector) > 0:
+    if type(vector) == list:
         indexes.append(len(vector))
-        return size_recursive(vector[0], indexes)
+        if len(vector) > 0:
+            return size_recursive(vector[0], indexes)
+        else:
+            return indexes
     else:
         return indexes
