@@ -13,8 +13,10 @@ def matrix_shape(matrix):
 
 def size_recursive(vector, indexes):
     """
-    iterate the matrix recusively by
+    Iterate the matrix recusively by
     dividing in vectors
+    @vector: one dimension on the matrix
+    @indexes: the list to return the sizes
     """
     if type(vector) == list:
         indexes.append(len(vector))
