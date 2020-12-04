@@ -20,14 +20,9 @@ def cat_matrices(mat1, mat2, axis=0):
     if not all(checks):
         return None
     new_matrix = []
-    # return None
     try:
-        print('MAT 1 AND 2\n\n')
-        print(mat1, mat2)
-        print('\n\n')
         return recursive_cat(mat1, mat2, axis, 0)
     except Exception as e:
-        print(e)
         return None
 
 
