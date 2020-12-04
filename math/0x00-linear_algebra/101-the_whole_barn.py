@@ -25,6 +25,8 @@ def add_matrices(mat1, mat2):
 
 def recursive_sum(dim1, dim2, nmat):
     """
+    Recursive sum, chect the incoming vector
+    and reconsume the recursion above the inner dimensions
     """
     if type(dim1) == list:
         mat = []
