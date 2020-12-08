@@ -12,3 +12,12 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 - How to scale an axis
 - How to plot multiple sets of data at the same time
 
+## Plot
+
+![](pics/1.png)
+![](pics/2.png)
+![](pics/3.png)
+![](pics/4.png)
+![](pics/5.png)
+![](pics/6.png)
+
