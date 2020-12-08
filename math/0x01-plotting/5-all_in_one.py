@@ -31,25 +31,22 @@ parameters = {
 }
 plt.rcParams.update(parameters)
 fig = plt.figure()
-
 ax1 = plt.subplot2grid((3, 2), (0, 0), colspan=1)
-# 
+# adding ax 1
 ax1.set_xlim(0, 10)
 ax1.plot(y0)
-
+# adding ax 2
 ax2 = plt.subplot2grid((3, 2), (0, 1), colspan=1)
-#
 ax2.title.set_text("Men's Height vs Weight")
 ax2.scatter(x1, y1, c=['#d065cb'])
-
 ax3 = plt.subplot2grid((3, 2), (1, 0), colspan=1)
-#
+# adding ax 3
 ax3.set_xlabel('Fraction Remaining')
 ax3.set_ylabel('Time (years)')
 ax3.set_yscale('log')
 ax3.set_xlim(0, 28650)
 ax3.plot(x2, y2)
-
+# adding ax 4
 ax4 = plt.subplot2grid((3, 2), (1, 1), colspan=1)
 ax4.title.set_text('Exponential Decay of Radioactive Elements')
 ax4.set_xlim(0, 20000)
@@ -57,8 +54,7 @@ ax4.set_ylim(0, 1)
 line1, = ax4.plot(x3, y31, color="#eb473f", label="C-14", linestyle="dashed")
 line2, = ax4.plot(x3, y32, color="#4f9720", label="Ra-226")
 ax4.legend((line1, line2), (line1.get_label(), line2.get_label()))
-# 
-
+# adding ax 5
 ax5 = plt.subplot2grid((3, 2), (2, 0), colspan=2)
 ax5.title.set_text('Project A')
 ax5.set_xlabel('Grades')
