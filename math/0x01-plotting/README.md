@@ -12,12 +12,27 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 - How to scale an axis
 - How to plot multiple sets of data at the same time
 
-## Plot
+## 0. Line Graph
 
 ![](pics/1.png)
+
+## 1. Scatter
+
 ![](pics/2.png)
+
+## 2. Change of scale
+
 ![](pics/3.png)
+
+## 3. Two is better than one
+
 ![](pics/4.png)
+
+## 4. Frequency
+
 ![](pics/5.png)
+
+# 5. All in one
+
 ![](pics/6.png)
 
