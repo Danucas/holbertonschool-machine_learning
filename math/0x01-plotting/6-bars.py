@@ -7,12 +7,6 @@ fruit = np.random.randint(0, 20, (4,3))
 
 r = [0, 1, 2]
 names = ['Farrah', 'Fred', 'Felicia']
-
-print(fruit)
-# fruit = fruit.transpose()
-print(fruit)
-
-
 p1 = plt.bar(
     r,
     fruit[0],
@@ -44,8 +38,6 @@ p4 = plt.bar(
     width=0.5,
     label='peaches'
 )
-
-
 plt.ylim(0, 80)
 plt.legend(loc='upper right')
 plt.xticks(r, names)
