@@ -10,7 +10,7 @@ def summation_i_squared(n):
     """
     if type(n) != int:
         return None
-    summ = 0
-    for i in range(1, n + 1):
-        summ += i ** 2
-    return summ
+    return sum(map(
+        lambda i: i ** 2,
+        range(1, n + 1)
+    ))
