@@ -8,7 +8,7 @@ def summation_i_squared(n):
     """
     Summa function
     """
-    if type(n) != int or n < 0:
+    if type(n) != int or n < 1:
         return None
     return sum(map(
         lambda i: i ** 2,
