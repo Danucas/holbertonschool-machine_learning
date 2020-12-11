@@ -25,7 +25,7 @@ def poly_derivative(poly):
         enumerate(poly)
     ]
     if len(coefficients) == 1:
-        return coefficients
+        return [0]
     # Forwards
     indexes = []
     for i, coeff in enumerate(coefficients):
