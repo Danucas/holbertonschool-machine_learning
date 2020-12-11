@@ -26,4 +26,4 @@ def poly_derivative(poly):
     ]
     if all(check_all_zeroes):
         return [0]
-    return coefficients[start_index:end_index]
+    return coefficients
