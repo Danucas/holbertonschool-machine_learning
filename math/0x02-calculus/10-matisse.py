@@ -11,16 +11,16 @@ def poly_derivative(poly):
     """
     if type(poly) != list:
         return None
-    if len(poly) == 0:
-        return None
-    if len(poly) == 1:
-        return [0]
     checks_ints = [
         type(n) == int or type(n) == float
         for n in poly
     ]
     if not all(checks_ints):
         return None
+    if len(poly) == 0:
+        return None
+    if len(poly) == 1:
+        return [0]
     coefficients = [
         coeff * (i)
         for i, coeff in
