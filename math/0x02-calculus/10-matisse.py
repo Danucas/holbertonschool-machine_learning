@@ -12,7 +12,7 @@ def poly_derivative(poly):
     if type(poly) != list:
         return None
     checks_ints = [
-        type(n) == int
+        type(n) == int or type(n) == float
         for n in poly
     ]
     if not all(checks_ints):
@@ -22,6 +22,8 @@ def poly_derivative(poly):
         for i, coeff in
         enumerate(poly)
     ]
+    if len(coefficients) == 1:
+        return coefficients
     # Forwards
     indexes = []
     for i, coeff in enumerate(coefficients):
