@@ -11,6 +11,8 @@ def poly_derivative(poly):
     """
     if type(poly) != list:
         return None
+    if len(poly) == 0:
+        return None
     checks_ints = [
         type(n) == int or type(n) == float
         for n in poly
