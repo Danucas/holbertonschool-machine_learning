@@ -26,28 +26,14 @@ def poly_derivative(poly):
         for i, coeff in
         enumerate(poly)
     ]
-    if len(coefficients) == 1:
-        return coefficients
-    # Forwards
-    indexes = []
+    start_index = 0
     for i, coeff in enumerate(coefficients):
         if coeff != 0:
+            start_index = i
             break
-        indexes.append(i)
-    if len(coefficients) == len(indexes):
-        return [0]
-    for index in indexes:
-        del coefficients[index]
-    # Backwards
-    coefficients.reverse()
-    indexes = []
-    for i, coeff in enumerate(coefficients):
+    end_index = len(coefficients)
+    for i, coeff in enumerate(reversed(coefficients)):
         if coeff != 0:
+            end_index = len(coefficients) - i
             break
-        indexes.append(i)
-    if len(coefficients) == len(indexes):
-        return [0]
-    for index in indexes:
-        del coefficients[index]
-    coefficients.reverse()
-    return coefficients
+    return coefficients[start_index:end_index]
