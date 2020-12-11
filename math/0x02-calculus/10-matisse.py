@@ -36,4 +36,10 @@ def poly_derivative(poly):
         if coeff != 0:
             end_index = len(coefficients) - i
             break
+    check_all_zeroes = [
+        n == 0
+        for n in coefficients
+    ]
+    if all(check_all_zeroes):
+        return [0]
     return coefficients[start_index:end_index]
