@@ -9,33 +9,17 @@ def poly_derivative(poly):
     calculates the coefficientes from the derivative
     of poly
     """
-    if type(poly) != list:
+    if not isinstance(poly, list) or not all(
+            type(n) == int or type(n) == float
+            for n in poly) or len(poly) == 1:
         return None
-    checks_ints = [
-        type(n) == int or type(n) == float
-        for n in poly
-    ]
-    if not all(checks_ints):
-        return None
-    if len(poly) == 0:
-        return None
-    if len(poly) == 1:
+    if len(poly) <= 1:
         return [0]
     coefficients = [
         coeff * (i)
         for i, coeff in
-        enumerate(poly)
+        enumerate(poly[1:], 1)
     ]
-    start_index = 0
-    for i, coeff in enumerate(coefficients):
-        if coeff != 0:
-            start_index = i
-            break
-    end_index = len(coefficients)
-    for i, coeff in enumerate(reversed(coefficients)):
-        if coeff != 0:
-            end_index = len(coefficients) - i
-            break
     check_all_zeroes = [
         n == 0
         for n in coefficients
