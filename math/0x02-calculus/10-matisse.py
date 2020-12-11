@@ -34,6 +34,8 @@ def poly_derivative(poly):
         if coeff != 0:
             break
         indexes.append(i)
+    if len(coefficients) == len(indexes):
+        return [0]
     for index in indexes:
         del coefficients[index]
     # Backwards
@@ -43,6 +45,8 @@ def poly_derivative(poly):
         if coeff != 0:
             break
         indexes.append(i)
+    if len(coefficients) == len(indexes):
+        return [0]
     for index in indexes:
         del coefficients[index]
     coefficients.reverse()
