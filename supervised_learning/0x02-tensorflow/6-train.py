@@ -51,9 +51,6 @@ def train(
             val_loss, val_acc = sess.run(
                 (loss, acc), feed_dict=validation_dict)
             print_results(i, t_loss, t_acc, val_loss, val_acc)
-        if i == 0:
-            _, t_loss, t_acc = sess.run(
-                (train_op, loss, acc), feed_dict=training_dict)
     saver.save(sess, save_path)
     return save_path
 
@@ -62,7 +59,7 @@ def print_results(iteration, t_loss, t_acc, val_loss, val_acc):
     """
     Prints results
     """
-    message = ("\nAfter {iteration} iterations:"
+    message = ("After {iteration} iterations:"
                "\n\tTraining Cost: {cost}"
                "\n\tTraining Accuracy: {accuracy}"
                "\n\tValidation Cost: {val_cost}"
