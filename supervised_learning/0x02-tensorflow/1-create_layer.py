@@ -11,7 +11,6 @@ def create_layer(prev, n, activation):
     defines a layer with activation He et. al
     """
     initializer = tf.contrib.layers.variance_scaling_initializer(
-        n,
         mode="FAN_AVG",
         dtype=tf.dtypes.float32
     )
