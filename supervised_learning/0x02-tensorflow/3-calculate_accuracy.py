@@ -10,6 +10,9 @@ def calculate_accuracy(y, y_pred):
     """
     Calculates y pred accuracy
     """
-    acc, op = tf.metrics.accuracy(labels=y, predictions=y_pred)
-    accuracy = tf.reduce_mean(acc)
+    corrected_pred = tf.equal(
+        tf.argmax(y_pred, 1),
+        tf.argmax(y, 1)
+    )
+    accuracy = tf.reduce_mean(tf.cast(corrected_pred, tf.float32))
     return accuracy
