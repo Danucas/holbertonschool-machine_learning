@@ -12,7 +12,7 @@ def create_layer(prev, n, activation):
     """
     initializer = tf.contrib.layers.variance_scaling_initializer(
         mode="FAN_AVG",
-        dtype=tf.dtypes.float32
+        dtype=tf.float32
     )
 
     layer = tf.layers.Dense(
