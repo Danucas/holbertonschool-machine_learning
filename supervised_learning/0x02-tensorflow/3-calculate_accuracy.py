@@ -10,6 +10,6 @@ def calculate_accuracy(y, y_pred):
     """
     Calculates y pred accuracy
     """
-    equality = tf.math.equal(y_pred, y)
+    equality = tf.math.equal(y, y_pred)
     accuracy = tf.math.reduce_mean(tf.cast(equality, tf.float32))
     return accuracy
