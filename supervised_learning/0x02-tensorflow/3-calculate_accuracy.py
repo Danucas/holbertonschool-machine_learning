@@ -10,8 +10,6 @@ def calculate_accuracy(y, y_pred):
     """
     Calculates y pred accuracy
     """
-    accuracy = tf.contrib.metrics.accuracy(
-        tf.cast(y_pred, dtype=tf.bool),
-        tf.cast(y, dtype=tf.bool)
-    )
-    return accuracy
+    pred_check = tf.equal(y_pred, y)
+    acc_op = tf.reduce_mean(tf.cast(pred_check, tf.float32))
+    return acc_op
