@@ -79,8 +79,7 @@ def train(
                     # Print all losses and accuracies
                     print_results(i, t_loss, t_acc, val_loss, val_acc)
 
-            saver.save(sess, save_path)
-    return save_path
+            return saver.save(sess, save_path)
 
 
 def print_results(iteration, t_loss, t_acc, val_loss, val_acc):
