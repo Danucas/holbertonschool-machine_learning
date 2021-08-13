@@ -18,40 +18,58 @@ def train(
     """
     Train running, Shoo Shoo !!
     """
-    x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
-    y_pred = forward_prop(x, layer_sizes, activations)
-    acc = calculate_accuracy(y, y_pred)
-    loss = calculate_loss(y, y_pred)
-    train_op = create_train_op(loss, alpha)
+    g = tf.Graph()
+    with g.as_default():
+        x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
+        y_pred = forward_prop(x, layer_sizes, activations)
+        accuracy = calculate_accuracy(y, y_pred)
+        loss = calculate_loss(y, y_pred)
+        train_op = create_train_op(loss, alpha)
 
-    init = tf.global_variables_initializer()
+        init = tf.global_variables_initializer()
 
-    training_dict = {
-        x: X_train,
-        y: Y_train
-    }
+        training_dict = {
+            x: X_train,
+            y: Y_train
+        }
 
-    validation_dict = {
-        x: X_valid,
-        y: Y_valid
-    }
+        validation_dict = {
+            x: X_valid,
+            y: Y_valid
+        }
 
-    saver = tf.train.Saver()
-    sess = tf.Session()
-    sess.run(init)
+        saver = tf.train.Saver()
+        with tf.Session() as sess:
+            sess.run(init)
+            batch_size = len(X_train) // iterations
+            start = 0
+            for i in range(iterations + 1):
+                # Get 0th iteration
+                if i == 0:
+                    # Compute loss and accuracy for training
+                    t_loss, t_acc = sess.run(
+                        (loss, accuracy), feed_dict={
+                            x: X_train[start:start + batch_size],
+                            y: Y_train[start:start + batch_size]
+                        })
+                else:
+                    _, t_loss, t_acc = sess.run(
+                        (train_op, loss, accuracy), feed_dict={
+                            x: X_train[start:start + batch_size],
+                            y: Y_train[start:start + batch_size]
+                        })
+                    start = start + batch_size
 
-    for i in range(iterations + 1):
-        if i == 0:
-            t_loss, t_acc = sess.run(
-                (loss, acc), feed_dict=training_dict)
-        else:
-            _, t_loss, t_acc = sess.run(
-                (train_op, loss, acc), feed_dict=training_dict)
-        if i % 100 == 0 or i == iterations:
-            val_loss, val_acc = sess.run(
-                (loss, acc), feed_dict=validation_dict)
-            print_results(i, t_loss, t_acc, val_loss, val_acc)
-    saver.save(sess, save_path)
+                # Validate each 100 iterations
+                if i % 100 == 0 or i == iterations:
+                    # Compute loss and accuracy for validation
+                    val_loss, val_acc = sess.run(
+                        (loss, accuracy), feed_dict=validation_dict)
+
+                    # Print all losses and accuracies
+                    print_results(i, t_loss, t_acc, val_loss, val_acc)
+
+            saver.save(sess, save_path)
     return save_path
 
 
