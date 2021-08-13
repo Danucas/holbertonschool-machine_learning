@@ -30,7 +30,7 @@ def train(
         tf.add_to_collection('y_pred', y_pred)
         tf.add_to_collection('loss', loss)
         tf.add_to_collection('accuracy', accuracy)
-        tf.add_to_collection('train_op', train_op)
+        tf.add_to_collection('train', train_op)
 
         init = tf.global_variables_initializer()
 
@@ -45,40 +45,22 @@ def train(
         }
 
         saver = tf.train.Saver()
-        config = tf.ConfigProto(
-            intra_op_parallelism_threads=0,
-            inter_op_parallelism_threads=2,
-            allow_soft_placement=True)
-        with tf.Session(config=config) as sess:
+        with tf.Session() as sess:
             sess.run(init)
-            batch_size = len(X_train) // iterations
-            start = 0
             for i in range(iterations + 1):
-                # Get 0th iteration
-                if i == 0:
-                    # Compute loss and accuracy for training
-                    t_loss, t_acc = sess.run(
-                        (loss, accuracy), feed_dict={
-                            x: X_train[start:start + batch_size],
-                            y: Y_train[start:start + batch_size]
-                        })
-                else:
-                    _, t_loss, t_acc = sess.run(
-                        (train_op, loss, accuracy), feed_dict={
-                            x: X_train[start:start + batch_size],
-                            y: Y_train[start:start + batch_size]
-                        })
-                    start = start + batch_size
-
-                # Validate each 100 iterations
-                if i % 100 == 0 or i == iterations:
-                    # Compute loss and accuracy for validation
-                    val_loss, val_acc = sess.run(
+                t_loss, t_acc = sess.run(
+                    (loss, accuracy), feed_dict=training_dict)
+                val_loss, val_acc = sess.run(
                         (loss, accuracy), feed_dict=validation_dict)
-
-                    # Print all losses and accuracies
-                    print_results(i, t_loss, t_acc, val_loss, val_acc)
-
+                if i % 100 == 0 or i == iterations:
+                    print_results(
+                        i,
+                        t_loss,
+                        t_acc,
+                        val_loss,
+                        val_acc)
+                if i < iterations:
+                    sess.run(train_op, feed_dict=training_dict)
             return saver.save(sess, save_path)
 
 
