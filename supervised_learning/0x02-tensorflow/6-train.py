@@ -41,12 +41,12 @@ def train(
         sess.run(init)
         for i in range(iterations + 1):
             t_loss, t_acc = sess.run(
-                (loss, accuracy), feed_dict={
+                [loss, accuracy], feed_dict={
                     x: X_train,
                     y: Y_train
                 })
             val_loss, val_acc = sess.run(
-                (loss, accuracy), feed_dict={
+                [loss, accuracy], feed_dict={
                     x: X_valid,
                     y: Y_valid
                 })
