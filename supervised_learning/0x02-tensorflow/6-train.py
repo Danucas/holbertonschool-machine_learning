@@ -25,6 +25,12 @@ def train(
         accuracy = calculate_accuracy(y, y_pred)
         loss = calculate_loss(y, y_pred)
         train_op = create_train_op(loss, alpha)
+        tf.add_to_collection('placeholders', x)
+        tf.add_to_collection('placeholders', y)
+        tf.add_to_collection('tensors', y_pred)
+        tf.add_to_collection('tensors', loss)
+        tf.add_to_collection('tensors', accuracy)
+        tf.add_to_collection('operation', train_op)
 
         init = tf.global_variables_initializer()
 
@@ -39,7 +45,11 @@ def train(
         }
 
         saver = tf.train.Saver()
-        with tf.Session() as sess:
+        config = tf.ConfigProto(
+            intra_op_parallelism_threads=0,
+            inter_op_parallelism_threads=2,
+            allow_soft_placement=True)
+        with tf.Session(config=config) as sess:
             sess.run(init)
             batch_size = len(X_train) // iterations
             start = 0
@@ -77,11 +87,11 @@ def print_results(iteration, t_loss, t_acc, val_loss, val_acc):
     """
     Prints results
     """
-    message = ("After {iteration} iterations:"
-               "\n\tTraining Cost: {cost}"
-               "\n\tTraining Accuracy: {accuracy}"
-               "\n\tValidation Cost: {val_cost}"
-               "\n\tValidation Accuracy: {val_acc}"
+    message = ("After {iteration} iterations:\n"
+               "\tTraining Cost: {cost}\n"
+               "\tTraining Accuracy: {accuracy}\n"
+               "\tValidation Cost: {val_cost}\n"
+               "\tValidation Accuracy: {val_acc}"
                )
     print(message.format(
         iteration=iteration,
