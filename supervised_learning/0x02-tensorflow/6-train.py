@@ -18,50 +18,48 @@ def train(
     """
     Train running, Shoo Shoo !!
     """
-    g = tf.Graph()
-    with g.as_default():
-        x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
-        y_pred = forward_prop(x, layer_sizes, activations)
-        accuracy = calculate_accuracy(y, y_pred)
-        loss = calculate_loss(y, y_pred)
-        train_op = create_train_op(loss, alpha)
-        tf.add_to_collection('x', x)
-        tf.add_to_collection('y', y)
-        tf.add_to_collection('y_pred', y_pred)
-        tf.add_to_collection('loss', loss)
-        tf.add_to_collection('accuracy', accuracy)
-        tf.add_to_collection('train', train_op)
+    x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
+    y_pred = forward_prop(x, layer_sizes, activations)
+    accuracy = calculate_accuracy(y, y_pred)
+    loss = calculate_loss(y, y_pred)
+    train_op = create_train_op(loss, alpha)
+    tf.add_to_collection('x', x)
+    tf.add_to_collection('y', y)
+    tf.add_to_collection('y_pred', y_pred)
+    tf.add_to_collection('loss', loss)
+    tf.add_to_collection('accuracy', accuracy)
+    tf.add_to_collection('train', train_op)
 
-        init = tf.global_variables_initializer()
+    init = tf.global_variables_initializer()
 
-        training_dict = {
-            x: X_train,
-            y: Y_train
-        }
+    training_dict = {
+        x: X_train,
+        y: Y_train
+    }
 
-        validation_dict = {
-            x: X_valid,
-            y: Y_valid
-        }
+    validation_dict = {
+        x: X_valid,
+        y: Y_valid
+    }
 
-        saver = tf.train.Saver()
-        with tf.Session() as sess:
-            sess.run(init)
-            for i in range(iterations + 1):
-                t_loss, t_acc = sess.run(
-                    (loss, accuracy), feed_dict=training_dict)
-                val_loss, val_acc = sess.run(
-                        (loss, accuracy), feed_dict=validation_dict)
-                if i % 100 == 0 or i == iterations:
-                    print_results(
-                        i,
-                        t_loss,
-                        t_acc,
-                        val_loss,
-                        val_acc)
-                if i < iterations:
-                    sess.run(train_op, feed_dict=training_dict)
-            return saver.save(sess, save_path)
+    saver = tf.train.Saver()
+    with tf.Session() as sess:
+        sess.run(init)
+        for i in range(iterations + 1):
+            t_loss, t_acc = sess.run(
+                (loss, accuracy), feed_dict=training_dict)
+            val_loss, val_acc = sess.run(
+                (loss, accuracy), feed_dict=validation_dict)
+            if i % 100 == 0 or i == iterations:
+                print_results(
+                    i,
+                    t_loss,
+                    t_acc,
+                    val_loss,
+                    val_acc)
+            if i < iterations:
+                sess.run(train_op, feed_dict=training_dict)
+        return saver.save(sess, save_path)
 
 
 def print_results(iteration, t_loss, t_acc, val_loss, val_acc):
