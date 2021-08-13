@@ -41,44 +41,17 @@ def train(
         sess.run(init)
         for i in range(iterations + 1):
             t_loss, t_acc = sess.run(
-                [loss, accuracy], feed_dict={
-                    x: X_train,
-                    y: Y_train
-                })
+                [loss, accuracy],
+                feed_dict={x: X_train, y: Y_train})
             val_loss, val_acc = sess.run(
-                [loss, accuracy], feed_dict={
-                    x: X_valid,
-                    y: Y_valid
-                })
+                [loss, accuracy],
+                feed_dict={x: X_valid, y: Y_valid})
             if i % 100 == 0 or i == iterations:
-                print_results(
-                    i,
-                    t_loss,
-                    t_acc,
-                    val_loss,
-                    val_acc)
+                print("After {} iterations:".format(i))
+                print("\tTraining Cost: {}".format(t_loss))
+                print("\tTraining Accuracy: {}".format(t_acc))
+                print("\tValidation Cost: {}".format(val_loss))
+                print("\tValidation Accuracy: {}".format(val_acc))
             if i < iterations:
-                sess.run(train_op, feed_dict={
-                    x: X_train,
-                    y: Y_train
-                })
+                sess.run(train_op, feed_dict={x: X_train, y: Y_train})
         return saver.save(sess, save_path)
-
-
-def print_results(iteration, t_loss, t_acc, val_loss, val_acc):
-    """
-    Prints results
-    """
-    message = ("After {iteration} iterations:\n"
-               "\tTraining Cost: {cost}\n"
-               "\tTraining Accuracy: {accuracy}\n"
-               "\tValidation Cost: {val_cost}\n"
-               "\tValidation Accuracy: {val_acc}"
-               )
-    print(message.format(
-        iteration=iteration,
-        cost=t_loss,
-        accuracy=t_acc,
-        val_cost=val_loss,
-        val_acc=val_acc
-    ))
