@@ -34,27 +34,22 @@ def train(
     train_op = create_train_op(loss, alpha)
     tf.add_to_collection('train_op', train_op)
 
-
     init = tf.global_variables_initializer()
-
-    training_dict = {
-        x: X_train,
-        y: Y_train
-    }
-
-    validation_dict = {
-        x: X_valid,
-        y: Y_valid
-    }
 
     saver = tf.train.Saver()
     with tf.Session() as sess:
         sess.run(init)
         for i in range(iterations + 1):
             t_loss, t_acc = sess.run(
-                (loss, accuracy), feed_dict=training_dict)
+                (loss, accuracy), feed_dict={
+                    x: X_train,
+                    y: Y_train
+                })
             val_loss, val_acc = sess.run(
-                (loss, accuracy), feed_dict=validation_dict)
+                (loss, accuracy), feed_dict={
+                    x: X_valid,
+                    y: Y_valid
+                })
             if i % 100 == 0 or i == iterations:
                 print_results(
                     i,
@@ -63,7 +58,10 @@ def train(
                     val_loss,
                     val_acc)
             if i < iterations:
-                sess.run(train_op, feed_dict=training_dict)
+                sess.run(train_op, feed_dict={
+                    x: X_train,
+                    y: Y_train
+                })
         return saver.save(sess, save_path)
 
 
