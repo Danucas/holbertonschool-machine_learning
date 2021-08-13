@@ -18,7 +18,7 @@ def train(
     """
     Train running, Shoo Shoo !!
     """
-    x, y = create_placeholders(X_train.shape[1], layer_sizes[-1])
+    x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
     tf.add_to_collection('x', x)
     tf.add_to_collection('y', y)
 
@@ -46,7 +46,7 @@ def train(
             val_loss, val_acc = sess.run(
                 [loss, accuracy],
                 feed_dict={x: X_valid, y: Y_valid})
-            if i % 100 == 0 or i == iterations:
+            if i % 10 == 0 or i == iterations:
                 print("After {} iterations:".format(i))
                 print("\tTraining Cost: {}".format(t_loss))
                 print("\tTraining Accuracy: {}".format(t_acc))
