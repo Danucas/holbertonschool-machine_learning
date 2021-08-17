@@ -12,7 +12,7 @@ def evaluate(X, Y, save_path):
     """
     sess = tf.Session()
     saver = tf.train.import_meta_graph(save_path + '.meta')
-    saver.restore(sess, './model.ckpt')
+    saver.restore(sess, save_path)
     x = tf.get_collection('x')[0]
     y = tf.get_collection('y')[0]
     y_pred = tf.get_collection('y_pred')[0]
