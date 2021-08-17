@@ -18,7 +18,7 @@ def train(
     """
     Train running, Shoo Shoo !!
     """
-    x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
+    x, y = create_placeholders(X_train.shape[1], layer_sizes[-1])
     tf.add_to_collection('x', x)
     tf.add_to_collection('y', y)
 
